@@ -1,0 +1,6 @@
+incident_id,opened_at,resolved_at,priority,status
+INC-001,2026-02-01 08:00:00,2026-02-01 10:15:00,high,resolved
+INC-002,2026-02-01 09:40:00,2026-02-01 09:55:00,urgent,resolved
+INC-003,2026-02-02 11:00:00,,medium,open
+INC-004,2026-02-03 13:10:00,2026-02-04 16:30:00,low,resolved
+INC-005,2026-02-05 07:20:00,2026-02-05 09:10:00,high,resolved
