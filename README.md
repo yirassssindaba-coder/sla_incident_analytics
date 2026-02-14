@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <b>Analisis SLA & insiden dari file CSV</b> — hitung KPI, cek breach, dan lihat tren insiden secara cepat untuk kebutuhan ops/support.
+  <b>Analisis SLA & insiden dari file CSV</b> — hitung KPI, cek breach, dan lihat tren insiden secara cepat untuk kebutuhan ops/supports.
 </p>
 
 ---
