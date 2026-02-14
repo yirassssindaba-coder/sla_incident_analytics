@@ -1,32 +1,36 @@
 <div align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&height=210&color=0:16a34a,100:22c55e&text=SLA%20%26%20Incident%20Analytics&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Python%20Data%20Science%20%E2%80%A2%20CSV%20Ingest%20%E2%80%A2%20KPI%20%E2%80%A2%20Trend%20Chart%20%E2%80%A2%20Export%20Summary&descAlignY=58" />
+  <img src="https://capsule-render.vercel.app/api?type=rect&height=130&color=0:16a34a,100:22c55e&text=SLA%20%26%20Incident%20Analytics&fontSize=34&fontColor=ffffff&animation=fadeIn&fontAlignY=55" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=2200&pause=700&color=22C55E&center=true&vCenter=true&width=900&lines=CSV+ingest+%E2%86%92+schema+check+%E2%86%92+cleaning+NA+%E2%86%92+KPI;Resolution+time+%2B+SLA+breach+rate+%2B+trend+chart;Export+summary+(JSON%2FCSV)+%7C+Notebook+ready;Offline-friendly+guards%3A+empty+state+%2B+safe+date+parse" />
+  <br/>
+  <img src="https://skillicons.dev/icons?i=python,anaconda,vscode&perline=3" />
 </div>
 
-<p align="center">
-  <img alt="Python" src="https://img.shields.io/badge/Python-Data%20Science-3776AB?logo=python&logoColor=white" />
-  <img alt="Pandas" src="https://img.shields.io/badge/pandas-CSV%20Analytics-150458?logo=pandas&logoColor=white" />
-  <img alt="Status" src="https://img.shields.io/badge/Status-Ready%20to%20Run-16a34a" />
-  <img alt="Offline" src="https://img.shields.io/badge/Offline-Yes-22c55e" />
-</p>
+---
 
-<p align="center">
-  <b>Analisis SLA & insiden dari file CSV</b> — hitung KPI, cek breach, dan lihat tren insiden secara cepat untuk kebutuhan ops/supports.
-</p>
+## Run (script)
+```bash
+python analysis.py sample_incidents.csv
+```
+
+---
+
+## Run (notebook)
+Open `sla_incident_analytics.ipynb` in Jupyter/VSCode.
 
 ---
 
 ## Fitur utama
-- ✅ **CSV ingest** dengan guard kolom wajib & validasi tipe data dasar
-- ✅ **KPI ringkas** (contoh: total incident, resolved vs open, rata-rata durasi, SLA breach rate)
-- ✅ **Trend chart** untuk melihat pola insiden (per hari/minggu — sesuai data)
-- ✅ **Export summary** (ringkasan hasil) agar mudah ditempel ke report / tiket
-- ✅ **Anti-error**: handle NA, empty dataset, parsing tanggal aman, dan pesan error yang jelas
+- ✅ CSV ingest + **guard kolom wajib**
+- ✅ Handle **NA** (`resolved_at` kosong) dan **empty dataset**
+- ✅ KPI: total incident, resolved vs open, avg resolution, **SLA breach rate**
+- ✅ Trend chart (sesuai data)
+- ✅ Export ringkasan (untuk report/tiket)
 
 ---
 
 ## Persyaratan
-- **Direkomendasikan:** Python **3.12 (x64)** untuk instalasi dependensi yang mulus di Windows
-- **Catatan Python 3.14:** gunakan `pandas>=2.3.3` (atau pakai Python 3.12), karena `pandas==2.2.2` akan mencoba build dari source di Python 3.14 dan sering gagal jika toolchain C++ belum siap.
+- **Disarankan (Windows):** Python **3.12 (x64)** untuk instalasi dependensi yang mulus.
+- **Jika pakai Python 3.14:** gunakan `pandas>=2.3.3` (jangan pin `pandas==2.2.2` karena bisa memaksa build dari source).
 
 ---
 
@@ -52,21 +56,7 @@ pip install -r requirements.txt
 
 ---
 
-## Run (script)
-```bash
-python analysis.py sample_incidents.csv
-```
-
----
-
-## Run (notebook)
-Buka `sla_incident_analytics.ipynb` di **Jupyter** / **VS Code**.
-
----
-
-## Format data CSV (schema)
-Minimal CSV kamu sebaiknya punya kolom seperti ini (nama kolom bisa kamu sesuaikan di script kalau berbeda):
-
+## Format CSV (schema minimal)
 | Kolom | Tipe | Wajib | Contoh |
 |------|------|------:|--------|
 | `id` | string/int | ✅ | `INC-001` |
@@ -77,12 +67,12 @@ Minimal CSV kamu sebaiknya punya kolom seperti ini (nama kolom bisa kamu sesuaik
 | `sla_minutes` | number | ✅ | `240` |
 | `status` | string | ❌ | `open/resolved` |
 
-> Kalau `resolved_at` kosong, incident dianggap **open** dan durasinya dihitung sampai “sekarang” (atau sesuai aturan di script).
+> Jika `resolved_at` kosong, incident dianggap **open** dan durasinya dihitung sesuai aturan di script.
 
 ---
 
 ## Preview output (contoh)
-**Contoh ringkasan (terminal)**
+**Ringkasan (terminal)**
 ```text
 Loaded: 120 incidents
 Resolved: 98 | Open: 22
@@ -91,7 +81,7 @@ SLA breach: 12 (12.2%)
 Top categories: network (34), app (29), device (18)
 ```
 
-**Contoh export summary (CSV/JSON)**
+**Export summary (contoh)**
 ```json
 {
   "total": 120,
@@ -107,32 +97,20 @@ Top categories: network (34), app (29), device (18)
 
 ## Anti-error checklist
 - ✅ Cek kolom wajib sebelum proses
-- ✅ `try/except` parsing tanggal (format tak dikenal → pesan error + baris bermasalah)
+- ✅ Parsing tanggal aman (format aneh → pesan error jelas)
 - ✅ Handle NA (`resolved_at` kosong)
-- ✅ Empty state (CSV kosong / hasil filter kosong) → tampil pesan, tidak crash
+- ✅ Empty state (CSV kosong / hasil filter kosong) → tidak crash
 
 ---
 
 ## Troubleshooting cepat
-### 1) `ERROR: Could not parse vswhere.exe output` saat install pandas
-Penyebab: pip mencoba **build pandas dari source** (biasanya karena versi Python tidak ada wheel untuk pandas yang dipin).
-
-Fix paling cepat:
+### `ERROR: Could not parse vswhere.exe output` saat install pandas
+Penyebab: pip mencoba **build pandas dari source**.
+Fix:
 - Pakai **Python 3.12** (Opsi A), atau
 - Naikkan pandas ke `pandas>=2.3.3` (Opsi B).
-
-### 2) `FileNotFoundError: sample_incidents.csv`
-Pastikan kamu menjalankan perintah dari folder project yang benar, atau gunakan path lengkap:
-```bash
-python analysis.py .\data\sample_incidents.csv
-```
-
-### 3) `KeyError` kolom tidak ditemukan
-Cek nama kolom CSV kamu. Samakan dengan schema atau sesuaikan mapping di script.
 
 ---
 
 ## Lisensi
-Gunakan bebas untuk portofolio & demo internal. Kalau kamu mau, tulis `MIT License` di sini.
-
----
+Bebas untuk portofolio & demo internal (opsional: tambahkan MIT License).
